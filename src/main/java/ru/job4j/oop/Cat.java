@@ -2,7 +2,7 @@ package ru.job4j.oop;
 
 public class Cat {
 
-    public String sound(){
+    public String sound() {
         String voice = "may-may";
         return voice;
     }
