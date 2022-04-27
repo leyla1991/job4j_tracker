@@ -20,9 +20,9 @@ public class Calculator {
         return x * a;
     }
 
-    public int sumAllOperation() {
-         int all = this.divide(25) + this.multiply(3) + Calculator.sum(2) + Calculator.minus(13);
-         return all;
+    public int sumAllOperation(int a) {
+        return divide(a) + multiply(a) + Calculator.sum(a) + Calculator.minus(a);
+
     }
 
     public static void main(String[] args) {
@@ -33,10 +33,8 @@ public class Calculator {
         System.out.println(rsl);
         int min = Calculator.minus(5);
         System.out.println(min);
-        Calculator div = new Calculator();
-        System.out.println(div.divide(10));
-        Calculator sumAll = new Calculator();
-        System.out.println(sumAll.sumAllOperation());
+        System.out.println(calculator.divide(10));
+        System.out.println(calculator.sumAllOperation(30));
 
     }
 }
