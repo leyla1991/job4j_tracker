@@ -28,7 +28,7 @@ public class TriangleTest {
     }
 
     @Test
-    public void when50and22and63Then55() {
+    public void when50and22and63Then5dot5() {
         Point a = new Point(5, 0);
         Point b = new Point(2, 2);
         Point c = new Point(6, 3);
