@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Item {
     private int id;
     private String name;
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
     public Item() {
     }
@@ -13,10 +13,6 @@ public class Item {
     public Item(String name, int id) {
         this.name = name;
         this.id = id;
-    }
-
-    {
-        created = LocalDateTime.now();
     }
 
     public Item(LocalDateTime created) {
