@@ -4,12 +4,8 @@ public class Engineer extends Profession {
 
     private String scheme;
 
-    public Engineer(String name, String surname, String education, double birthday) {
+    public Engineer(String name, String surname, String education, double birthday, String scheme) {
         super(name, surname, education, birthday);
-    }
-
-    public Engineer(String scheme) {
-        super();
         this.scheme = scheme;
     }
 

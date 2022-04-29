@@ -4,12 +4,8 @@ public class Surgeon extends Doctor {
 
     private String operation;
 
-    public Surgeon(String name, String surname, String education, double birthday) {
-        super(name, surname, education, birthday);
-    }
-
-    public Surgeon(String inspection, String operation) {
-        super(inspection);
+    public Surgeon(String name, String surname, String education, double birthday, double analysis, String inspection, String operation) {
+        super(name, surname, education, birthday, analysis, inspection);
         this.operation = operation;
     }
 

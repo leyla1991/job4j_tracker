@@ -4,12 +4,8 @@ public class Builder extends Engineer {
 
     private String house;
 
-    public Builder(String name, String surname, String education, double birthday) {
-        super(name, surname, education, birthday);
-    }
-
-    public Builder(String scheme, String house) {
-        super(scheme);
+    public Builder(String name, String surname, String education, double birthday, String scheme, String house) {
+        super(name, surname, education, birthday, scheme);
         this.house = house;
     }
 
