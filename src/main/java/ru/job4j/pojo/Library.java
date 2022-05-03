@@ -25,7 +25,7 @@ public class Library {
         }
         for (int i = 0; i < books.length; i++) {
             Book bks = books[i];
-            if (bks.getName() == "Clean code") {
+            if (bks.getName().equals("Clean code")) {
                 System.out.println(bks.getName() + " - " + bks.getCount() + " страниц.");
             }
         }
