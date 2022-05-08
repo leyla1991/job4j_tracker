@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.strategy.Square;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
@@ -147,6 +149,35 @@ public class StartUITest {
                         + one + ln
                         + "Menu:" + ln
                         + "0. Find items by name" + ln
+                        + "1. Exit" + ln
+                        + "=== Exit Program ===" + ln
+        ));
+    }
+
+    @Test
+    public void whenShowAllAction() {
+        Output output = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item one = tracker.add(new Item("test1"));
+        Item two = tracker.add(new Item("test2"));
+        Input in = new StubInput(
+                new String[] {"0", String.valueOf(one.getId()), String.valueOf(two.getId()), "1"}
+        );
+        UserAction[] actions = new UserAction[] {
+                new ShowAllAction(output),
+                new ExitAction(output)
+        };
+        new StartUI(output).init(in, tracker, actions);
+        String ln = System.lineSeparator();
+        assertThat(output.toString(), is(
+                "Menu:" + ln
+                        + "0. Show all items" + ln
+                        + "1. Exit" + ln
+                        + "=== Show all items ===" + ln
+                        + one + ln
+                        + two + ln
+                        + "Menu:" + ln
+                        + "0. Show all items" + ln
                         + "1. Exit" + ln
                         + "=== Exit Program ===" + ln
         ));
