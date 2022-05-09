@@ -11,8 +11,8 @@ public class FindEl {
                 break;
             }
         }
-        if (key == null && rsl == -1) {
-            throw new ElementNotFoundException("Key could not be null");
+        if (rsl == -1) {
+            throw new ElementNotFoundException("Element not found");
         }
         return rsl;
     }
