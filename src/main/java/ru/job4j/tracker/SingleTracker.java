@@ -3,6 +3,8 @@ package ru.job4j.tracker;
 public class SingleTracker {
     private static SingleTracker single = null;
 
+    private Tracker tracker = new Tracker();
+
     private SingleTracker() {
 
     }
@@ -13,8 +15,6 @@ public class SingleTracker {
         }
         return single;
     }
-
-    private Tracker tracker = new Tracker();
 
     public Item add(Item item) {
         return tracker.add(item);
