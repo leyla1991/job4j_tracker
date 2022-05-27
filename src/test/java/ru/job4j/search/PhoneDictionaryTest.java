@@ -5,6 +5,8 @@ import ru.job4j.ru.job4j.search.Person;
 import ru.job4j.ru.job4j.search.PhoneDictionary;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 public class PhoneDictionaryTest {
@@ -26,6 +28,6 @@ public class PhoneDictionaryTest {
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
         ArrayList<Person> persons = phones.find("Anton");
-        assertThat(persons.isEmpty(), is(true));
+        assertTrue(persons.isEmpty());
     }
 }
