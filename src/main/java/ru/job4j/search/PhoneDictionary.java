@@ -1,4 +1,4 @@
-package ru.job4j.ru.job4j.search;
+package ru.job4j.search;
 
 import java.util.ArrayList;
 
