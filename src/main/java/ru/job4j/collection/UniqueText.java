@@ -14,13 +14,11 @@ public class UniqueText {
         }
 
         for (String tex : text) {
-            if (check.contains(tex) == false) {
+            if (!check.contains(tex)) {
                 rsl = false;
                 break;
             }
         }
-        /* for-each origin -> new HashSet. */
-        /* for-each text -> hashSet.contains */
         return rsl;
     }
 }
