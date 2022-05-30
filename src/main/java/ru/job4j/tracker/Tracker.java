@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Tracker {
 
     private List<Item> items = new ArrayList<>();
-    // private final Item[] items = new Item[100];
     private int ids = 1;
 
     public List<Item> add(Item item) {
