@@ -9,3 +9,4 @@ public class JobRiseByPriority implements Comparator<Job> {
         return Integer.compare(o1.getPriority(), o2.getPriority());
     }
 }
+
