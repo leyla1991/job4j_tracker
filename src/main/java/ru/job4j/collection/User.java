@@ -16,10 +16,7 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User first) {
         int contrast = this.name.compareTo(first.name);
-        if (contrast == 0) {
-            contrast = Integer.compare(this.age, first.age);
-
-        }
+        contrast = (contrast == 0) ? Integer.compare(this.age, first.age) : contrast;
         return contrast;
     }
 
