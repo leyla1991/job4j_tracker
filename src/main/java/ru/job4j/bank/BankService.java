@@ -90,6 +90,7 @@ public class BankService {
      * @return  true, если операция прошла успешно или false, если такого счета не существует,
      * или на счете недостаточно средств
      */
+
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
