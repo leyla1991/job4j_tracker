@@ -16,8 +16,8 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User first) {
         int contrast = this.name.compareTo(first.name);
-        contrast = (contrast == 0) ? Integer.compare(this.age, first.age) : contrast;
-        return contrast;
+        return contrast == 0 ? Integer.compare(this.age, first.age) : contrast;
+
     }
 
     @Override
