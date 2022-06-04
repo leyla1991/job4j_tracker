@@ -40,7 +40,7 @@ public class Job implements Comparable<Job> {
             return false;
         }
         Job job = (Job) o;
-        return priority == job.priority;
+        return priority == job.priority && Objects.equals(name, job.name);
     }
 
     @Override
