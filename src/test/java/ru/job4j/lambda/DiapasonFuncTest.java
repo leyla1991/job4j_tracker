@@ -20,7 +20,7 @@ public class DiapasonFuncTest {
 
     @Test
     public void whenSquareFunctionThenSquareResult() {
-        List<Double> result = Function.diapason(4, 7, x -> 2 * (x * x) + 1 * x + 3);
+        List<Double> result = Function.diapason(4, 7, x -> 2 * Math.pow(x, 2) + 1 * x + 3);
         List<Double> expected = Arrays.asList(39D, 58D, 81D);
         assertThat(result, is(expected));
     }
