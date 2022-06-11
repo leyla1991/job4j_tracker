@@ -17,19 +17,16 @@ public class FunctionalInterfaces {
             biCon.accept(num++, s1);
         }
 
-        BiPredicate<Integer, String> biPred = (i, s1) -> i % 2 == 0 || map.get(i).length() == 4;
+        BiPredicate<Integer, String> biPred = (i, s1) -> i % 2 == 0 || s1.length() == 4;
         for (Integer i : map.keySet()) {
             System.out.println("key: " + i + " value: " + biPred.test(i, map.get(i)));
         }
 
         Supplier<List<String>> sup = () -> new ArrayList<>(map.values());
         Consumer<String> con = (s) -> System.out.println(s);
-        for (String s : sup.get()) {
-            con.accept(s);
-        }
-
         Function<String, String> func = (s) -> s.toUpperCase();
         for (String s : sup.get()) {
+            con.accept(s);
             System.out.println(func.apply(s));
         }
     }
