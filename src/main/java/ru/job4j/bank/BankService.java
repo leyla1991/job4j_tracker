@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Класс описывает добавление данных о клиенте банка,
@@ -51,14 +52,11 @@ public class BankService {
      * @return возвращает данные о пользователе или null, если он не найден
      * */
     public User findByPassport(String passport) {
-        User pass = null;
-        for (User user : users.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                pass = user;
-                break;
-            }
-        }
-        return pass;
+        return users.keySet()
+                .stream()
+                .filter(p -> passport.equals(p.getPassport()))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -69,17 +67,13 @@ public class BankService {
     */
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
-        Account account = null;
         if (user != null) {
-            List<Account> accounts = users.get(user);
-            for (Account acc : accounts) {
-                if (acc.getRequisite().equals(requisite)) {
-                    account = acc;
-                }
-            }
+            return users.get(user).stream().filter(account1 -> account1.getRequisite().equals(requisite)).findFirst()
+                    .orElse(null);
         }
-        return account;
+        return null;
     }
+
     /**
      * Метод предназначен для перечисления денег с одного счёта на другой счёт
      * @param srcPassport номер паспорта клиента, который делает перевод,
