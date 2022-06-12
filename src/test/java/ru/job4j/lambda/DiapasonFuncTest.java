@@ -27,8 +27,8 @@ public class DiapasonFuncTest {
 
     @Test
     public void whenPermanentFunctionThenFunctionResults() {
-        List<Double> result = Function.diapason(2, 5, x -> Math.pow(x, 2));
-        List<Double> expected = Arrays.asList(4D, 9D, 16D);
+        List<Double> result = Function.diapason(2, 5, x -> Math.pow(2, x));
+        List<Double> expected = Arrays.asList(4D, 8D, 16D);
         assertThat(result, is(expected));
     }
 }
