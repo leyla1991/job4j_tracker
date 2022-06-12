@@ -23,7 +23,7 @@ public class Card  {
     public static void main(String[] args) {
         Stream.of(Suit.values())
                 .flatMap(s -> Stream.of(Value.values())
-                        .map(value1 -> s + " " + value1))
+                        .map(value1 -> new Card(s, value1).suit.toString() + " " + new Card(s, value1).value.toString()))
                 .forEach(System.out::println);
 
     }
