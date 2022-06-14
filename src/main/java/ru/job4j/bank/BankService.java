@@ -63,14 +63,12 @@ public class BankService {
      * @return возвращает обновленный аккаунт со счетами клиента или null, если не найден.
     */
     public Optional<Account> findByRequisite(String passport, String requisite) {
-        Optional<User> user = findByPassport(passport);
-        if (user.isPresent()) {
-            return users.get(user.get())
-                    .stream()
-                    .filter(account1 -> account1.getRequisite()
-                            .equals(requisite)).findFirst();
-        }
-        return Optional.empty();
+        return findByPassport(passport)
+                .flatMap(u -> users.get(u)
+                        .stream()
+                        .filter(account -> account.getRequisite()
+                                .equals(requisite))
+                        .findFirst());
     }
 
     /**
