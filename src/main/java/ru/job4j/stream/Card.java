@@ -37,5 +37,4 @@ public class Card  {
                 .forEach(System.out::println);
 
     }
-
 }
