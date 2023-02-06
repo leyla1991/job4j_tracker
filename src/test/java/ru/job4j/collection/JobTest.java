@@ -1,8 +1,6 @@
 package ru.job4j.collection;
 
 import org.junit.Test;
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.ItemAscByName;
 
 import java.util.ArrayList;
 import java.util.Collections;
