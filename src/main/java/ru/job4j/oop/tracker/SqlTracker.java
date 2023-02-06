@@ -89,7 +89,7 @@ public class SqlTracker implements Store {
         List<Item> itemList = new ArrayList<>();
         try (PreparedStatement ps = cn.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = ps.executeQuery()) {
-                while(resultSet.next()) {
+                while (resultSet.next()) {
                     itemList.add(new Item(
                             resultSet.getString("name"),
                             resultSet.getInt("id")

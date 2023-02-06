@@ -10,9 +10,6 @@ public class SubList {
             if (list.get(i).contains(el)) {
                 count++;
             }
-            if (count > 1) {
-            }
-
         }
         return list;
     }
