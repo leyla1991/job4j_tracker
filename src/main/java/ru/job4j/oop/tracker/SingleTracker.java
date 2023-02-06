@@ -1,9 +1,9 @@
-package ru.job4j.tracker;
+package ru.job4j.oop.tracker;
 
 public class SingleTracker {
     private static SingleTracker single = null;
 
-    private Tracker tracker = new Tracker();
+    private Store tracker = new SqlTracker();
 
     private SingleTracker() {
 
