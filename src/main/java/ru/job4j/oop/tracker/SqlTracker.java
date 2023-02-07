@@ -101,8 +101,6 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                     itemList.add(itemGet(resultSet));
                 }
-            } catch (Exception i) {
-                i.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,8 +117,6 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                         itemList.add(itemGet(resultSet));
                 }
-            } catch (Exception i) {
-                i.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,8 +133,6 @@ public class SqlTracker implements Store {
                 if (resultSet.next()) {
                     item = itemGet(resultSet);
                 }
-            } catch (Exception i) {
-                i.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
