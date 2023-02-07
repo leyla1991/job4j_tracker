@@ -1,7 +1,7 @@
 package ru.job4j.oop.tracker;
+
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -12,6 +12,14 @@ public class SqlTracker implements Store {
 
     public SqlTracker() {
         init();
+    }
+
+    private Item itemGet(ResultSet resultSet) throws SQLException {
+        return new Item(
+                resultSet.getString("name"),
+                resultSet.getInt("id"),
+                resultSet.getTimestamp("created").toLocalDateTime()
+        );
     }
 
     public SqlTracker(Connection cn) {
@@ -43,7 +51,8 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement ps = cn.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = cn.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, item.getName());
             ps.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             ps.execute();
@@ -61,9 +70,9 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(int id, Item item) {
         boolean result = false;
-        try (PreparedStatement ps = cn.prepareStatement("UPDATE items set name = ?, created = ?, where id =?")) {
+        try (PreparedStatement ps = cn.prepareStatement("UPDATE items set name = ?, created = ? where id =?")) {
             ps.setString(1, item.getName());
-            ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             ps.setInt(3, id);
             result = ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -90,10 +99,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement ps = cn.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
-                    itemList.add(new Item(
-                            resultSet.getString("name"),
-                            resultSet.getInt("id")
-                    ));
+                    itemList.add(itemGet(resultSet));
                 }
             } catch (Exception i) {
                 i.printStackTrace();
@@ -111,10 +117,7 @@ public class SqlTracker implements Store {
             ps.setString(1, key);
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
-                        itemList.add(new Item(
-                                resultSet.getString("name"),
-                                resultSet.getInt("id")
-                        ));
+                        itemList.add(itemGet(resultSet));
                 }
             } catch (Exception i) {
                 i.printStackTrace();
@@ -131,11 +134,8 @@ public class SqlTracker implements Store {
         try (PreparedStatement ps = cn.prepareStatement("SELECT * FROM items WHERE id = ?")) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
-                while (resultSet.next()) {
-                    item = new Item(
-                            resultSet.getString("name"),
-                            resultSet.getInt("id")
-                    );
+                if (resultSet.next()) {
+                    item = itemGet(resultSet);
                 }
             } catch (Exception i) {
                 i.printStackTrace();
