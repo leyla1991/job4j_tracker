@@ -30,33 +30,33 @@ public class StartUITest {
     public void whenEditAction() {
         Output output = new ConsoleOutput();
         MemTracker memTracker = new MemTracker();
-        List<Item> item = memTracker.add(new Item("Edit name"));
+        Item item = memTracker.add(new Item("Edit name"));
         String editName = "New item name";
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.get(0).getId()), editName, "1"}
+                new String[] {"0", String.valueOf(item.getId()), editName, "1"}
         );
         List<UserAction> actions = List.of(
                 new EditAction(output),
                 new ExitAction(output)
         );
         new StartUI(output).init(in, memTracker, actions);
-        assertThat(memTracker.findById(1).get(0).getName(), is(editName));
+        assertThat(memTracker.findById(1).getName(), is(editName));
     }
 
     @Test
     public void whenDeleteAction() {
         Output output = new ConsoleOutput();
         MemTracker memTracker = new MemTracker();
-        List<Item> item = memTracker.add(new Item("Deleted item"));
+        Item item = memTracker.add(new Item("Deleted item"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.get(0).getId()), "1"}
+                new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         List<UserAction> actions = List.of(
                 new DeleteAction(output),
                 new ExitAction(output)
         );
         new StartUI(output).init(in, memTracker, actions);
-        assertThat(memTracker.findById(item.get(0).getId()), is(nullValue()));
+        assertThat(memTracker.findById(item.getId()), is(nullValue()));
     }
 
     @Test
@@ -78,10 +78,10 @@ public class StartUITest {
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
         MemTracker memTracker = new MemTracker();
-        List<Item> one = memTracker.add(new Item("test1"));
+        Item one = memTracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(one.get(0).getId()), replaceName, "1"}
+                new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         List<UserAction> actions = List.of(
                 new EditAction(out),
@@ -106,9 +106,9 @@ public class StartUITest {
     public void whenFindByIdAction() {
         Output output = new StubOutput();
         MemTracker memTracker = new MemTracker();
-       List<Item> one = memTracker.add(new Item("test1"));
+        Item one = memTracker.add(new Item("test1"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(one.get(0).getId()), "1"}
+                new String[] {"0", String.valueOf(one.getId()), "1"}
         );
         List<UserAction> actions = List.of(
                 new FindByIdAction(output),
@@ -133,9 +133,9 @@ public class StartUITest {
     public void whenFindByName() {
         Output output = new StubOutput();
        MemTracker memTracker = new MemTracker();
-        List<Item> one = memTracker.add(new Item("test1"));
+        Item one = memTracker.add(new Item("test1"));
         Input in = new StubInput(
-               new String[] {"0", String.valueOf(one.get(0).getName()), "1"}
+               new String[] {"0", String.valueOf(one.getName()), "1"}
         );
         List<UserAction> actions = List.of(
                new FindByNameAction(output),
@@ -160,8 +160,8 @@ public class StartUITest {
     public void whenShowAllAction() {
         Output output = new StubOutput();
         MemTracker memTracker = new MemTracker();
-        List<Item> one = memTracker.add(new Item("test1"));
-        List<Item> two = memTracker.add(new Item("test2"));
+        Item one = memTracker.add(new Item("test1"));
+        Item two = memTracker.add(new Item("test2"));
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );

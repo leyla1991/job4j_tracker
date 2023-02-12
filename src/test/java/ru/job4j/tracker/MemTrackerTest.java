@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.nullValue;
 
 public class MemTrackerTest {
 
@@ -18,16 +18,16 @@ public class MemTrackerTest {
         Item item = new Item();
         item.setName("test1");
         memTracker.add(item);
-        List<Item> result = memTracker.findById(item.getId());
-        assertThat(result.get(0).getName(), is(item.getName()));
+        Item result = memTracker.findById(item.getId());
+        assertThat(result.getName(), is(item.getName()));
     }
 
     @Test
     public void whenTestFindById() {
         MemTracker memTracker = new MemTracker();
         Item bug = new Item("Bug");
-        List<Item> item = memTracker.add(bug);
-        List<Item> result = memTracker.findById(item.size());
+        Item item = memTracker.add(bug);
+        Item result = memTracker.findById(item.getId());
         assertThat(result, is(item));
     }
 
@@ -75,12 +75,12 @@ public class MemTrackerTest {
         MemTracker memTracker = new MemTracker();
         Item bug = new Item();
         bug.setName("Bug");
-        List<Item> rep = memTracker.add(bug);
+        Item rep = memTracker.add(bug);
         int id = bug.getId();
         Item bugWithDesc = new Item();
         bugWithDesc.setName("Bug with description");
         memTracker.replace(id, bugWithDesc);
-        assertThat(rep.get(0).getName(), is("Bug with description"));
+        assertThat(memTracker.findById(id).getName(), is("Bug with description"));
     }
 
     @Test
@@ -88,9 +88,9 @@ public class MemTrackerTest {
         MemTracker memTracker = new MemTracker();
         Item bug = new Item();
         bug.setName("Bug");
-        List<Item> del = memTracker.add(bug);
+        Item del = memTracker.add(bug);
         int id = bug.getId();
         memTracker.delete(id);
-        assertTrue(del.isEmpty());
+        assertThat(memTracker.findById(id), is(nullValue()));
     }
 }
