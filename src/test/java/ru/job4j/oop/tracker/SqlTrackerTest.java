@@ -11,9 +11,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SqlTrackerTest {
 
@@ -55,4 +56,54 @@ public class SqlTrackerTest {
         tracker.add(item);
         assertThat(tracker.findById(item.getId())).isEqualTo(item);
     }
+
+    @Test
+    public void whenReplaceItem() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        Item replaceItem = new Item("replaceItem");
+        tracker.add(item);
+        tracker.replace(item.getId(), replaceItem);
+        assertThat("replaceItem").isEqualTo(item.getName());
+    }
+
+    @Test
+    public void whenDeleteItem() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("itemDel");
+        tracker.add(item);
+        tracker.delete(item.getId());
+        assertThat(tracker.findById(item.getId())).isNull();
+    }
+
+    @Test
+    public void whenFindAllItems() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        Item item1 = new Item("item1");
+        tracker.add(item);
+        tracker.add(item1);
+        List<Item> expected = List.of(item, item1);
+        assertThat(tracker.findAll()).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenFindByNameItem() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("findItem");
+        Item item1 = new Item("wrongItem");
+        tracker.add(item);
+        tracker.add(item1);
+        List<Item> expected = List.of(item);
+        assertThat(tracker.findByName("findItem")).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenFindByIdItem() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("findItem");
+        tracker.add(item);
+        assertThat(tracker.findById(item.getId())).isEqualTo(item);
+    }
+
 }
