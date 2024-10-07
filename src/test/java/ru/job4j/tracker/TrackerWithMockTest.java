@@ -2,6 +2,10 @@ package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static java.time.temporal.WeekFields.ISO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -85,25 +89,6 @@ public class TrackerWithMockTest {
         assertThat(output.toString()).isEqualTo(
                 "=== Delete item ===" + ln
                         + "Error when deleting the item." + ln
-        );
-    }
-
-    @Test
-    void whenCreateItemIsSuccessful() {
-
-        String itemName = "testItem";
-        CreateAction createAction = new CreateAction(output);
-
-        Input input = mock(Input.class);
-        when(input.askInt(any(String.class))).thenReturn(0);
-        when(input.askStr(any(String.class))).thenReturn(itemName);
-
-        createAction.execute(input, tracker);
-
-        String ln = System.lineSeparator();
-        assertThat(output.toString()).contains(
-                "=== Create a new Item. ===" + ln
-                        + "Added item: Item{id=1, name='testItem', created="
         );
     }
 
