@@ -32,19 +32,21 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public boolean replace(int id, Item item) {
         var session = sf.openSession();
-        boolean rls = true;
+        boolean rsl = false;
         try {
-            session.getTransaction();
-            session.createQuery("UPDATE Item WHERE id = :fId")
-                    .setParameter("fId", id);
+            session.beginTransaction();
+            var query = session.createQuery("UPDATE Item SET name = :fName WHERE id = :fId")
+                    .setParameter("fName", item.getName())
+                    .setParameter("fId", id)
+                   .executeUpdate();
+            rsl = query > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            rls = false;
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return rls;
+        return rsl;
     }
 
     @Override
@@ -52,8 +54,9 @@ public class HbmTracker implements Store, AutoCloseable {
         var session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery("DELETE Item WHERE id = :fId")
-                            .setParameter("fId", id);
+            session.createQuery("DELETE FROM Item WHERE id = :fId")
+                            .setParameter("fId", id)
+                    .executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -68,9 +71,9 @@ public class HbmTracker implements Store, AutoCloseable {
         List<Item> all = new ArrayList<>();
         try {
             session.beginTransaction();
-            var query = session.createQuery("FROM Item", Item.class).getResultList();
-            all.addAll(query);
+            var query = session.createQuery("FROM Item i left join fetch i.participates", Item.class).list();
             session.getTransaction().commit();
+            all = query;
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {

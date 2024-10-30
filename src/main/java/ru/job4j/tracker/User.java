@@ -1,10 +1,25 @@
 package ru.job4j.tracker;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private final int id;
+    @EqualsAndHashCode.Include
     private String username;
     private String password;
-
     private String occupation;
 
     public User(int id, String username, String password, String occupation) {
@@ -12,18 +27,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.occupation = occupation;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
